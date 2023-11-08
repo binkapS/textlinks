@@ -4,10 +4,11 @@
 
 A lightweight flutter package that linkifies a text containing urls, emails.
 
-<p>
-    <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s1.png" width="200px" height="auto" hspace="20"/>
-    <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s2.png" width="200px" height="auto" hspace="20"/>
-</p>
+## Without passing linkNames
+   <p> <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s1.png" width="200px" height="auto" hspace="20"/></p>
+
+## With  passinglinkNames
+   <p> <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s2.png" width="200px" height="auto" hspace="20"/></p>
 
 
 ## Install
