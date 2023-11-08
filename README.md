@@ -1,27 +1,67 @@
 # Textlinks
 
-Textlinks is Text Plugin that detects URLs and Emails in a String and when tapped opens in user browsers.
+[![pub package](https://img.shields.io/pub/v/flutter_textlinks.svg)](https://pub.dartlang.org/packages/flutter_textlinks)
 
-## Features
+A lightweight flutter package that linkifies a text containing urls, emails.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+<p>
+    <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s1.png" width="200px" height="auto" hspace="20"/>
+    <img src="https://raw.githubusercontent.com/binkapS/textlinks/master/assets/s2.png" width="200px" height="auto" hspace="20"/>
+</p>
 
-## Getting started
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Install
+
+Install by adding this package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_textlinks: <latest>
+```
+
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
+To use this package, add `flutter_textlinks` as a [dependency in your pubspec.yaml file](https://pub.dev/packages/flutter_textlinks/).
+
 to `/example` folder.
 
 ```dart
-const like = 'sample';
+import 'package:flutter_textlinks/textlinks.dart';
+
+    Textlinks(
+            text:
+                'Binkap Commented on your photo tiger@binkap.com in Programming Jokes & Memes https://binkap.com for more information',
+            onTap: (TextlinksElement element) {
+              if (element.type == TextlinksElementType.url) {
+                // do some with the url
+                return;
+              }
+
+              if (element.type == TextlinksElementType.email) {
+                // do something with the email
+                return;
+              }
+            },
+            style: TextStyle(
+              color: Colors.black,
+            ),
+            linkNames: {
+              "tiger@binkap.com": 'Email',
+              "https://binkap.com": 'Link'
+            }, // Pass link names to use and labels for specified links
+            options: TextlinksOptions(
+              humanize: true,
+            ),
+          );
 ```
 
 ## Additional information
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+
+#### TextlinksElementTypes
+
+| Parameter | Type     | Description                                          |
+| :-------- | :------- | :--------------------------------------------------- |
+| `type`    | `TextlinksElementType`   | the link type either url, email      |
+| `link`    | `String` | value the link holds                                 |

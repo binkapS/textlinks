@@ -1,15 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
-import 'package:textlinks/src/element.dart';
+import 'package:flutter_textlinks/src/element.dart';
 
 class TextlinksUtil {
-  TextlinksUtil(
-    this.text,
+  TextlinksUtil({
+    required this.text,
     this.linkNames,
     this.style,
     this.linkStyle,
-    this.onTap,
-  ) {
+    required this.onTap,
+    this.options,
+  }) {
     init();
   }
 
@@ -30,12 +31,13 @@ class TextlinksUtil {
 
   final Map<String, String>? linkNames;
 
-  final Function(TextLinksElement) onTap;
+  final Function(TextlinksElement) onTap;
 
   final defaultStyle = const TextStyle(
     color: CupertinoColors.activeBlue,
   );
 
+  final TextlinksOptions? options;
   void init() {
     Iterable<RegExpMatch> matches = regex.allMatches(text);
     for (RegExpMatch match in matches) {
@@ -61,23 +63,73 @@ class TextlinksUtil {
         children.add(
           TextSpan(
             text: child[0],
-            style: linkStyle ?? defaultStyle,
-            recognizer: TapGestureRecognizer().onTap = onTap(
-              TextLinksElement(
-                value,
-                elementType(value),
-              ),
-            ),
+            style: style,
           ),
         );
+        String name = value;
+        if (linkNames != null) {
+          if (linkNames!.containsKey(value)) {
+            name = ((linkNames![value] != null || linkNames![value]!.isNotEmpty)
+                ? linkNames![value]
+                : value)!;
+          }
+        } else if (options != null && isUrl(value)) {
+          if (options!.humanize) {
+            final scheme = urlScheme(value);
+            name = value.substring(
+                (value.indexOf(scheme['scheme']) + scheme['length'] as int));
+          }
+        }
+        children.add(
+          TextSpan(
+            text: name,
+            style: linkStyle ?? defaultStyle,
+            recognizer: TapGestureRecognizer()
+              ..onTap = () => onTap(
+                    TextlinksElement(
+                      value,
+                      elementType(value),
+                    ),
+                  ),
+          ),
+        );
+        if (child[1].isNotEmpty) {
+          if (value == links.last) {
+            children.add(
+              TextSpan(
+                text: child[1],
+                style: style,
+              ),
+            );
+          } else {
+            temp = child[1];
+          }
+        }
       }
     }
   }
 
   TextlinksElementType elementType(String value) {
-    if (value.toString().contains('@') && !value.toString().contains('/')) {
+    if (isEmail(value)) {
       return TextlinksElementType.email;
     }
     return TextlinksElementType.url;
+  }
+
+  bool isEmail(String value) {
+    return (value.toString().contains('@') && !value.toString().contains('/'));
+  }
+
+  bool isUrl(String value) {
+    return (value.contains('http://') ||
+        value.contains('https://') ||
+        value.contains('www.'));
+  }
+
+  Map<String, dynamic> urlScheme(String value) {
+    if (value.contains('http://')) {
+      return {'scheme': 'http://', 'length': 7};
+    }
+    return {'scheme': 'https://', 'length': 8};
   }
 }

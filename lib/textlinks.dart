@@ -1,9 +1,12 @@
-library textlinks;
+library flutter_textlinks;
+
+export 'src/element.dart'
+    show TextlinksElementType, TextlinksElement, TextlinksOptions;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/rendering.dart';
-import 'package:textlinks/src/element.dart';
-import 'package:textlinks/src/util.dart';
+import 'package:flutter_textlinks/src/element.dart';
+import 'package:flutter_textlinks/src/util.dart';
 
 class Textlinks extends StatelessWidget {
   const Textlinks({
@@ -25,6 +28,7 @@ class Textlinks extends StatelessWidget {
     this.selectionColor,
     this.linkNames,
     required this.onTap,
+    this.options,
   });
 
   final String text;
@@ -59,16 +63,19 @@ class Textlinks extends StatelessWidget {
 
   final Map<String, String>? linkNames;
 
-  final Function(TextLinksElement) onTap;
+  final Function(TextlinksElement) onTap;
+
+  final TextlinksOptions? options;
 
   @override
   Widget build(BuildContext context) {
     final TextlinksUtil util = TextlinksUtil(
-      text,
-      linkNames,
-      style,
-      linkStyle,
-      onTap,
+      text: text,
+      linkNames: linkNames,
+      style: style,
+      linkStyle: linkStyle,
+      onTap: onTap,
+      options: options,
     );
     return RichText(
       text: TextSpan(
