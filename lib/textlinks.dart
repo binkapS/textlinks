@@ -63,7 +63,7 @@ class Textlinks extends StatelessWidget {
 
   final Map<String, String>? linkNames;
 
-  final Function(TextlinksElement) onTap;
+  final Function(TextlinksElement element) onTap;
 
   final TextlinksOptions? options;
 

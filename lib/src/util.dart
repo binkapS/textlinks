@@ -31,7 +31,7 @@ class TextlinksUtil {
 
   final Map<String, String>? linkNames;
 
-  final Function(TextlinksElement) onTap;
+  final Function(TextlinksElement element) onTap;
 
   final defaultStyle = const TextStyle(
     color: CupertinoColors.activeBlue,
@@ -117,7 +117,7 @@ class TextlinksUtil {
   }
 
   bool isEmail(String value) {
-    return (value.toString().contains('@') && !value.toString().contains('/'));
+    return (value.contains('@') && !value.contains('/'));
   }
 
   bool isUrl(String value) {
