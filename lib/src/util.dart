@@ -41,7 +41,12 @@ class TextlinksUtil {
   void init() {
     Iterable<RegExpMatch> matches = regex.allMatches(text);
     for (RegExpMatch match in matches) {
-      links.add(text.substring(match.start, match.end));
+      links.add(
+        text.substring(
+          match.start,
+          match.end,
+        ),
+      );
     }
     if (links.isEmpty) {
       children.add(
@@ -77,7 +82,8 @@ class TextlinksUtil {
           if (options!.humanize) {
             final scheme = urlScheme(value);
             name = value.substring(
-                (value.indexOf(scheme['scheme']) + scheme['length'] as int));
+              (value.indexOf(scheme['scheme']) + scheme['length'] as int),
+            );
           }
         }
         children.add(

@@ -18,7 +18,7 @@ class Textlinks extends StatelessWidget {
     this.textDirection,
     this.softWrap = true,
     this.overflow = TextOverflow.clip,
-    this.textScaleFactor = 1.0,
+    this.textScaler = TextScaler.noScaling,
     this.maxLines,
     this.locale,
     this.strutStyle,
@@ -47,7 +47,7 @@ class Textlinks extends StatelessWidget {
 
   final TextOverflow overflow;
 
-  final double textScaleFactor;
+  final TextScaler textScaler;
 
   final Locale? locale;
 
@@ -86,7 +86,7 @@ class Textlinks extends StatelessWidget {
       textDirection: textDirection,
       softWrap: softWrap,
       overflow: overflow,
-      textScaleFactor: textScaleFactor,
+      textScaler: textScaler,
       locale: locale,
       strutStyle: strutStyle,
       textWidthBasis: textWidthBasis,
