@@ -1,6 +1,6 @@
 name: flutter_textlinks
 description: A lightweight flutter package that linkifies a text containing urls, emails.
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/binkapS/textlinks
 
 environment:
